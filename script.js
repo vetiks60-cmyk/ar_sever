@@ -7,6 +7,7 @@ window.addEventListener("load", () => {
   let rotationY = 0;
   let posX = 0.3;
 
+  // управление (клавиатура — для теста на ПК)
   document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") posX -= 0.02;
     if (e.key === "ArrowRight") posX += 0.02;
@@ -32,17 +33,26 @@ window.addEventListener("load", () => {
     }
   }
 
+  // 🔥 ПРАВИЛЬНЫЙ ЗАПУСК AR
   startButton.addEventListener("click", () => {
-  const scene = document.querySelector("a-scene");
 
-  const start = () => {
-    scene.systems["mindar-image-system"].start();
-    startButton.style.display = "none";
-  };
+    const scene = document.querySelector("a-scene");
 
-  if (scene.hasLoaded) {
-    start();
-  } else {
-    scene.addEventListener("loaded", start);
-  }
+    const startAR = () => {
+      if (scene.systems["mindar-image-system"]) {
+        scene.systems["mindar-image-system"].start();
+        startButton.style.display = "none";
+      } else {
+        console.error("MindAR system not ready");
+      }
+    };
+
+    if (scene.hasLoaded) {
+      startAR();
+    } else {
+      scene.addEventListener("loaded", startAR);
+    }
+
+  });
+
 });
