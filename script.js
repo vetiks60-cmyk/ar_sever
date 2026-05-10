@@ -33,10 +33,16 @@ window.addEventListener("load", () => {
   }
 
   startButton.addEventListener("click", () => {
-    const scene = document.querySelector("a-scene");
+  const scene = document.querySelector("a-scene");
 
+  const start = () => {
     scene.systems["mindar-image-system"].start();
     startButton.style.display = "none";
-  });
+  };
 
+  if (scene.hasLoaded) {
+    start();
+  } else {
+    scene.addEventListener("loaded", start);
+  }
 });
