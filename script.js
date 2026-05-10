@@ -1,6 +1,8 @@
 window.addEventListener("load", () => {
+
   const player = document.querySelector("#player");
   const popup = document.querySelector("#winPopup");
+  const startButton = document.getElementById("startButton");
 
   let rotationY = 0;
   let posX = 0.3;
@@ -29,4 +31,12 @@ window.addEventListener("load", () => {
       popup.style.display = "block";
     }
   }
+
+  startButton.addEventListener("click", () => {
+    const scene = document.querySelector("a-scene");
+
+    scene.systems["mindar-image-system"].start();
+    startButton.style.display = "none";
+  });
+
 });
